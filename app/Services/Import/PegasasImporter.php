@@ -14,8 +14,9 @@ class PegasasImporter implements ImportStrategy
         return $type === 'pegasas';
     }
 
-    public function import(): void
+    public function import(): array
     {
         echo "Not implemented yet";
+        return [];
     }
 }

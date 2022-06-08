@@ -6,6 +6,7 @@ use App\Services\Import\CompositeImporter;
 use App\Services\Import\Google\Importer;
 use App\Services\Import\ImporterContext;
 use App\Services\Import\NewYorkTime\Client;
+use App\Services\Import\NewYorkTime\ClientInterface;
 use App\Services\Import\PegasasImporter;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Import\NewYorkTime\Importer as NewYorkTime;
@@ -21,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(Client::class, function () {
             return new Client(config('import.new_york_time.secret'));
+        });
+
+        // nuandas kai naudojam interfacu surisima
+        $this->app->bind(ClientInterface::class, function () {
+            return $this->app->make(Client::class);
         });
 
         $this->app->bind('nyt.client', function () {
