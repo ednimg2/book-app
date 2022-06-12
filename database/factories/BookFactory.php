@@ -19,6 +19,7 @@ class BookFactory extends Factory
         return [
             'name' => $this->faker->name,
             'description' => $this->faker->text,
+            'image' => '',
             'iban' => $this->faker->iban,
             'year' => $this->faker->year,
             'pages' => $this->faker->numberBetween(1, 1000),
