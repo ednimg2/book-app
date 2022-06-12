@@ -11,16 +11,20 @@ use App\Services\Import\ImportStrategy;
 class Importer implements ImportStrategy
 {
     private ClientInterface $client;
-
     private AuthorsCountParser $authorsCountParser;
-
     private BookRepository $repository;
+    private BookFactory $bookFactory;
 
     /**
      * @param ClientInterface $client
      */
-    public function __construct(ClientInterface $client, AuthorsCountParser $authorsCountParser, BookRepository $repository)
-    {
+    public function __construct(
+        ClientInterface $client,
+        AuthorsCountParser $authorsCountParser,
+        BookRepository $repository,
+        BookFactory $bookFactory
+    ) {
+        $this->bookFactory = $bookFactory;
         $this->repository = $repository;
         $this->authorsCountParser = $authorsCountParser;
         $this->client = $client;
@@ -43,11 +47,7 @@ class Importer implements ImportStrategy
 //            $category->save();
 
             foreach ($data['results']['books'] as $book) {
-                $bookEntity = new Book();
-                $bookEntity->name = isset($book['title']) ? $book['title'] : null;
-                $bookEntity->description = $book['description'] ?? null;
-                $bookEntity->iban = $book['primary_isbn10'] ?? null;
-                $bookEntity->sku = uniqid();
+                $bookEntity = $this->bookFactory->create($book);
 //                $bookEntity->category_id = $category->id;
                 $this->repository->save($bookEntity);
 //                $books[] = $bookEntity;

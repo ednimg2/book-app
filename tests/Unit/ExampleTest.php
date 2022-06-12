@@ -25,9 +25,11 @@ class ExampleTest extends TestCase
      */
     public function testCatchException()
     {
+        //tikimės
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Authors name should be only simple string');
 
+        //vykdomas kodas
         $this->parser->parse('Nevalidus 123123123, 123123123');
 
 //        try {
@@ -43,7 +45,9 @@ class ExampleTest extends TestCase
      */
     public function testIfParseWell(?string $author, array $result)
     {
-        $this->assertEquals($result, $this->parser->parse($author));
+        $data = $this->parser->parse($author);
+
+        $this->assertEquals($result, $data);
     }
 
     public function dataset(): array

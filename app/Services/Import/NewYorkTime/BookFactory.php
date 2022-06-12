@@ -6,7 +6,7 @@ use App\Models\Book;
 
 class BookFactory
 {
-    public function create(array $data): Book
+    public function create(array $book): Book
     {
         $bookEntity = new Book();
         $bookEntity->name = isset($book['title']) ? $book['title'] : null;
