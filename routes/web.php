@@ -26,7 +26,7 @@ use App\Http\Controllers\App\AuctionController;
 
 Route::redirect('/home', '/');
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'home']);
 
 Auth::routes();
 
@@ -54,11 +54,12 @@ Route::group(['middleware' => ['auth']], function() {
             #book
             Route::prefix('/book')->group(function () {
                 Route::get('/', [BookController::class, 'list'])->name('admin.book');
-                Route::get('/show/{book}', [BookController::class, 'show'])->name('admin.book.show');
+                Route::get('/show/{id}', [BookController::class, 'show'])->name('admin.book.show');
                 Route::get('/create', [BookController::class, 'create']);
                 Route::post('/create', [BookController::class, 'create']);
                 Route::get('/export', [BookController::class, 'export'])->name('admin.book.export');
                 Route::delete('/delete/{book}', [BookController::class, 'destroy'])->name('admin.book.delete');
+                Route::get('/delete/image/{book}', [BookController::class, 'deleteImage'])->name('admin.book.delete.image');
                 Route::match(['get', 'post'], '/edit/{book}', [BookController::class, 'edit'])->name('admin.book.edit');
                 Route::match(['get', 'post'], '/import', [BookController::class, 'import'])->name('admin.book.import');
             });
@@ -92,3 +93,4 @@ Route::get('/books-list', [AppBookController::class, 'list'])->name('app.books-l
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('locale/{locale}', [HomeController::class, 'locale'])->name('locale');
