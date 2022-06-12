@@ -50,9 +50,9 @@ class Importer implements ImportStrategy
                 $bookEntity = $this->bookFactory->create($book);
 //                $bookEntity->category_id = $category->id;
                 $this->repository->save($bookEntity);
-//                $books[] = $bookEntity;
+                $books[] = $bookEntity;
 
-                $authorsArray = $this->authorsCountParser->parse($book['author']);
+                $authorsArray = $this->authorsCountParser->parse($book['author'] ?? null);
 
 //                $authors = str_replace(" and ", ",", $book['author']);
 //                $authorsArray = explode(',', $authors);

@@ -3,6 +3,9 @@
 namespace Tests\Unit;
 
 use App\Models\Book;
+use App\Repository\BookRepository;
+use App\Services\Import\NewYorkTime\AuthorsCountParser;
+use App\Services\Import\NewYorkTime\BookFactory;
 use App\Services\Import\NewYorkTime\Importer;
 use PHPUnit\Framework\TestCase;
 use Tests\Mock\NewYorkTimeClientMock;
@@ -11,7 +14,12 @@ class ImporterTest extends TestCase
 {
     public function testIfImports()
     {
-        $importer = new Importer(new NewYorkTimeClientMock());
+        $importer = new Importer(
+            new NewYorkTimeClientMock(),
+            new AuthorsCountParser(),
+            new BookRepository(),
+            new BookFactory()
+        );
 
         $result = $importer->import();
 
@@ -25,7 +33,14 @@ class ImporterTest extends TestCase
     {
         $mock = new NewYorkTimeClientMock();
         $mock->setData(json_decode($json, true));
-        $importer = new Importer($mock);
+        $bookRepositoryMock = $this->createMock(BookRepository::class);
+        $bookRepositoryMock->method('save')->willReturn(true);
+        $importer = new Importer(
+            $mock,
+            new AuthorsCountParser(),
+            $bookRepositoryMock,
+            new BookFactory()
+        );
 
         $result = $importer->import();
 
