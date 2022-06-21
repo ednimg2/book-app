@@ -54,10 +54,170 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Book withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Book withoutTrashed()
  * @mixin \Eloquent
+ *
+ * @OA\Schema(
+ *     title="Book",
+ *     description="Book model",
+ *     @OA\Xml(
+ *         name="Book"
+ *     )
+ * )
  */
 class Book extends Model
 {
     use HasFactory, SoftDeletes;
+
+    /**
+     * @OA\Property(
+     *     title="ID",
+     *     format="int64",
+     *     example=1
+     * )
+     *
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property(
+     *      title="Name",
+     *      description="Book Name",
+     *      example="Book name"
+     * )
+     *
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @OA\Property(
+     *      title="Category ID",
+     *      description="Category ID",
+     *      example=1
+     * )
+     *
+     * @var integer
+     */
+    private $category_id;
+
+    /**
+     * @OA\Property(
+     *      title="Category name",
+     *      description="Category description",
+     *      example="Category name"
+     * )
+     *
+     * @var string
+     */
+    private $category_name;
+
+    /**
+     * @OA\Property(
+     *      title="Category",
+     *      description="Category ID",
+     * )
+     *
+     * @var \App\Models\Category
+     */
+    private $category;
+
+    /**
+     * @OA\Property(
+     *      title="Description",
+     *      description="Description",
+     *      example="Lorem ipsum"
+     * )
+     *
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @OA\Property(
+     *      title="IBAN",
+     *      description="IBAN code",
+     *      example="LS0320202"
+     * )
+     *
+     * @var string
+     */
+    private $iban;
+
+    /**
+     * @OA\Property(
+     *      title="Year",
+     *      description="Year description",
+     *      example=2022
+     * )
+     *
+     * @var integer
+     */
+    private $year;
+
+    /**
+     * @OA\Property(
+     *      title="Pages",
+     *      description="Book pages description",
+     *      example="220"
+     * )
+     *
+     * @var string
+     */
+    private $pages;
+
+    /**
+     * @OA\Property(
+     *      title="Format",
+     *      description="Book format description",
+     *      example="A5"
+     * )
+     *
+     * @var string
+     */
+    private $format;
+
+    /**
+     * @OA\Property(
+     *      title="Language",
+     *      description="Book language description",
+     *      example="lt"
+     * )
+     *
+     * @var string
+     */
+    private $language;
+
+    /**
+     * @OA\Property(
+     *      title="SKU",
+     *      description="Book SKU description",
+     *      example="RS345"
+     * )
+     *
+     * @var string
+     */
+    private $sku;
+
+    /**
+     * @OA\Property(
+     *      title="Authors",
+     *      description="Authors description",
+     * )
+     *
+     * @var \App\Models\Author[]
+     */
+    private $authors;
+
+    /**
+     * @OA\Property(
+     *      title="Viewed count",
+     *      description="Viewed count description",
+     *      example=2
+     * )
+     *
+     * @var integer
+     */
+    private $viewed_count;
 
     protected $fillable = [
         'name', 'category_id', 'description', 'iban', 'year', 'pages', 'format', 'language', 'sku'

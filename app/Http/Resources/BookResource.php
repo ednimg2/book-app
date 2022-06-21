@@ -4,13 +4,26 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @OA\Schema(
+ *     title="BookResource",
+ *     description="Book resource",
+ *     @OA\Xml(
+ *         name="BookResource"
+ *     )
+ * )
+ */
 class BookResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @OA\Property(
+     *     title="Data",
+     *     description="Data wrapper"
+     * )
+     *
+     * @var \App\Models\Book[]
      */
     public function toArray($request): array
     {
@@ -25,7 +38,6 @@ class BookResource extends JsonResource
             'category' => $this->category,
             'language' => $this->language,
             'authors' => AuthorResource::collection($this->authors),
-            'created_at' => $this->created_at,
         ];
     }
 }

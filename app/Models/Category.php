@@ -37,10 +37,62 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin \Eloquent
+ *
+ * @OA\Schema(
+ *     title="Category",
+ *     description="Category model",
+ *     @OA\Xml(
+ *         name="Category"
+ *     )
+ * )
  */
 class Category extends Model
 {
     use HasFactory, SoftDeletes;
+
+    /**
+     * @OA\Property(
+     *     title="ID",
+     *     format="int64",
+     *     example=1
+     * )
+     *
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property(
+     *      title="Name",
+     *      description="Category Name",
+     *      example="Category name"
+     * )
+     *
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @OA\Property(
+     *      title="Category ID",
+     *      description="Category ID",
+     *      example=1
+     * )
+     *
+     * @var integer
+     */
+    private $category_id;
+
+    /**
+     * @OA\Property(
+     *      title="Active",
+     *      description="Is category active",
+     *      example=true
+     * )
+     *
+     * @var bool
+     */
+    private $active;
 
     protected $fillable = [
         'name', 'category_id', 'active'

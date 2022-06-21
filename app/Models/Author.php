@@ -33,10 +33,51 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Author withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Author withoutTrashed()
  * @mixin \Eloquent
+ *
+ * @OA\Schema(
+ *     title="Author",
+ *     description="Author model",
+ *     @OA\Xml(
+ *         name="Author"
+ *     )
+ * )
  */
 class Author extends Model
 {
     use HasFactory, SoftDeletes;
+
+    /**
+     * @OA\Property(
+     *     title="ID",
+     *     format="int64",
+     *     example=1
+     * )
+     *
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property(
+     *      title="Author name",
+     *      description="Author name description",
+     *      example="Name"
+     * )
+     *
+     * @var string
+     */
+    private $first_name;
+
+    /**
+     * @OA\Property(
+     *      title="Author last name",
+     *      description="Author last name description",
+     *      example="Last Name"
+     * )
+     *
+     * @var string
+     */
+    private $last_name;
 
     protected $fillable = [
         'first_name', 'last_name', 'description', 'birthday'

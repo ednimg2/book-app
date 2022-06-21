@@ -9,6 +9,9 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    /**
+     * @OA\Info(title="Book API", version="1.0.1")
+     */
     use AuthorizesRequests;
     use DispatchesJobs;
     use ValidatesRequests;

@@ -1,0 +1,386 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Book API",
+        "version": "1.0.1"
+    },
+    "paths": {
+        "/auctions": {
+            "get": {
+                "tags": [
+                    "Auction"
+                ],
+                "summary": "Get list of auctions",
+                "operationId": "getAuctionsList",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuctionResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Auction"
+                ],
+                "summary": "Create new Auction",
+                "operationId": "postAuction",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreAuctionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auction"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auctions/{id}": {
+            "get": {
+                "tags": [
+                    "Auction"
+                ],
+                "summary": "Get Auctions by ID",
+                "description": "Returns Auctions data",
+                "operationId": "getAuctionsById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Auction id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auction"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadApiRequest"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Get list of books",
+                "operationId": "getBooksList",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BookResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StoreAuctionRequest": {
+                "title": "StoreAuctionRequest",
+                "description": "Store Auction Request",
+                "xml": {
+                    "name": "StoreAuctionRequest"
+                }
+            },
+            "AuctionResource": {
+                "title": "AuctionResource",
+                "description": "Auction resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Auction"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "AuctionResource"
+                }
+            },
+            "BookResource": {
+                "title": "BookResource",
+                "description": "Book resource",
+                "properties": {
+                    "": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Book"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BookResource"
+                }
+            },
+            "Auction": {
+                "title": "Auction",
+                "description": "Auction model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name description",
+                        "type": "string",
+                        "example": "Mindaugas"
+                    },
+                    "price": {
+                        "title": "Price",
+                        "description": "Price description",
+                        "type": "number",
+                        "format": "float",
+                        "example": "33.33"
+                    },
+                    "currency": {
+                        "title": "Currency",
+                        "description": "Currency description",
+                        "type": "string",
+                        "example": "EUR"
+                    },
+                    "quantity": {
+                        "title": "Quantity",
+                        "description": "Quantity description",
+                        "type": "integer",
+                        "example": "3"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Auction"
+                }
+            },
+            "Author": {
+                "title": "Author",
+                "description": "Author model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "first_name": {
+                        "title": "Author name",
+                        "description": "Author name description",
+                        "type": "string",
+                        "example": "Name"
+                    },
+                    "last_name": {
+                        "title": "Author last name",
+                        "description": "Author last name description",
+                        "type": "string",
+                        "example": "Last Name"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Author"
+                }
+            },
+            "BadApiRequest": {
+                "title": "BadApiRequest",
+                "description": "BadApiRequest",
+                "properties": {
+                    "statusCode": {
+                        "title": "statusCode",
+                        "type": "integer",
+                        "example": 404
+                    },
+                    "message": {
+                        "title": "Message",
+                        "type": "string",
+                        "example": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BadApiRequest"
+                }
+            },
+            "Book": {
+                "title": "Book",
+                "description": "Book model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Book Name",
+                        "type": "string",
+                        "example": "Book name"
+                    },
+                    "category_id": {
+                        "title": "Category ID",
+                        "description": "Category ID",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "category_name": {
+                        "title": "Category name",
+                        "description": "Category description",
+                        "type": "string",
+                        "example": "Category name"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/Category"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "description": "Description",
+                        "type": "string",
+                        "example": "Lorem ipsum"
+                    },
+                    "iban": {
+                        "title": "IBAN",
+                        "description": "IBAN code",
+                        "type": "string",
+                        "example": "LS0320202"
+                    },
+                    "year": {
+                        "title": "Year",
+                        "description": "Year description",
+                        "type": "integer",
+                        "example": 2022
+                    },
+                    "pages": {
+                        "title": "Pages",
+                        "description": "Book pages description",
+                        "type": "string",
+                        "example": "220"
+                    },
+                    "format": {
+                        "title": "Format",
+                        "description": "Book format description",
+                        "type": "string",
+                        "example": "A5"
+                    },
+                    "language": {
+                        "title": "Language",
+                        "description": "Book language description",
+                        "type": "string",
+                        "example": "lt"
+                    },
+                    "sku": {
+                        "title": "SKU",
+                        "description": "Book SKU description",
+                        "type": "string",
+                        "example": "RS345"
+                    },
+                    "authors": {
+                        "title": "Authors",
+                        "description": "Authors description",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Author"
+                        }
+                    },
+                    "viewed_count": {
+                        "title": "Viewed count",
+                        "description": "Viewed count description",
+                        "type": "integer",
+                        "example": 2
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Book"
+                }
+            },
+            "Category": {
+                "title": "Category",
+                "description": "Category model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Category Name",
+                        "type": "string",
+                        "example": "Category name"
+                    },
+                    "category_id": {
+                        "title": "Category ID",
+                        "description": "Category ID",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "active": {
+                        "title": "Active",
+                        "description": "Is category active",
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Category"
+                }
+            }
+        }
+    }
+}

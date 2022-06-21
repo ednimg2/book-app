@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BookApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuctionController;
@@ -20,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/books', [BookApiController::class, 'index'])->name('api.books.index');
     Route::get('/auctions', [AuctionController::class, 'index'])->name('api.auctions.index');
     Route::get('/auctions/{id}', [AuctionController::class, 'show'])->name('api.auctions.show');
     Route::post('/auctions', [AuctionController::class, 'store'])->name('api.seller.auctions.create');
