@@ -20,10 +20,12 @@ class CompositeImporter implements ImportStrategy
         return $type === 'all';   // TODO: Implement support() method.
     }
 
-    public function import(): void
+    public function import(): array
     {
         foreach ($this->importers as $importer) {
             $importer->import();
         }
+
+        return [];
     }
 }

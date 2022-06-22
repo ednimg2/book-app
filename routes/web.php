@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\App\BookController as AppBookController;
 use App\Http\Controllers\App\AuctionController;
+use App\Http\Controllers\App\BasketController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -94,3 +95,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('locale/{locale}', [HomeController::class, 'locale'])->name('locale');
+
+Route::get('/basket', [BasketController::class, 'addItem'])->name('basket.add_item');

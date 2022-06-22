@@ -2,7 +2,7 @@
 
 namespace App\Services\Import\NewYorkTime;
 
-class Client
+class Client implements ClientInterface
 {
     private string $secret;
 
@@ -14,7 +14,7 @@ class Client
         $this->secret = $secret;
     }
 
-    public function getData()
+    public function getData(): array
     {
         $client = new \GuzzleHttp\Client();
         $res = $client->request(

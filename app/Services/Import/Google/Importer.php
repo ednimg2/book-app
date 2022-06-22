@@ -24,10 +24,10 @@ class Importer implements ImportStrategy
         return $type === 'google';
     }
 
-    public function import(): void
+    public function import(): array
     {
         var_dump('google');
-        return;
+        return [];
         $data = $this->client->getData();
 
         foreach ($data['items'] as $item) {
